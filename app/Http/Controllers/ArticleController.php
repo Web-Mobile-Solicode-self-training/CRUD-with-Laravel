@@ -2,29 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Http\Requests\StoreArticleRequest;
 
 class ArticleController extends Controller
 {
     public function create()
     {
-        // Affiche la vue du formulaire
+        // Display the form view
         return view('articles.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
-        $validated = $request->validate([
-            'title'   => ['required','string','min:3','max:150'],
-            'slug'    => ['nullable','string','max:180'],
-            'content' => ['nullable','string'],
-            'tags'    => ['nullable','string'],
-        ], [
-            'title.required' => 'Le titre est obligatoire.',
-            'title.min'      => 'Le titre doit contenir au moins :min caractères.',
-            'title.max'      => 'Le titre doit contenir au plus :max caractères.',
-        ]);
+        // Validation is already done in StoreArticleRequest
+        // $request->validated() contains the validated data
+        $validated = $request->validated();
 
         return back()
             ->withInput()
