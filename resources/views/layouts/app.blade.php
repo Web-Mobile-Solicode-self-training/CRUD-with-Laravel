@@ -7,13 +7,6 @@
 </head>
 <body>
   <main style="max-width:760px;margin:2rem auto;padding:1rem;">
-
-  <a href="{{ route('articles.create') }}" 
-   style="display:inline-block;margin-bottom:1rem;padding:.6rem 1rem;background:#2563eb;color:#fff;text-decoration:none;border-radius:4px;">
-  ➕ Créer un nouvel article
-</a>
-
-
     {{-- Message de succès --}}
     @if (session('status'))
       <div style="padding:.75rem;background:#e6ffed;border:1px solid #86efac;margin-bottom:1rem;">
