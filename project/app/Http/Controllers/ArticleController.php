@@ -11,6 +11,12 @@ use App\Http\Requests\UpdateArticleRequest;
 
 class ArticleController extends Controller
 {
+
+    public function __construct()
+{
+    $this->middleware('auth');
+}
+
     public function index(): View
     {
         $articles = Article::latest('id')->paginate(5);
