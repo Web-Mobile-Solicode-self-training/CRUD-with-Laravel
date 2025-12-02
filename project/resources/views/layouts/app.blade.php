@@ -15,7 +15,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Alpine.js for dropdowns (no Bootstrap JS needed) -->
+    <!-- Alpine.js for dropdowns -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-gray-100">
@@ -29,7 +29,7 @@
                     <!-- Left side -->
                     <div class="flex items-center">
                         <a href="{{ url('/') }}" class="text-xl font-semibold text-gray-800">
-                            {{ config('app.name', 'Laravel') }}
+                            {{ config('app.name', 'Blog') }}
                         </a>
                     </div>
 
@@ -51,17 +51,33 @@
                                 @endif
                             </div>
                         @else
-                            <!-- Authenticated Dropdown -->
+                            <!-- Authenticated Desktop -->
                             <div class="hidden md:flex items-center relative" x-data="{ dropdown: false }">
                                 <button @click="dropdown = !dropdown"
-                                    class="text-gray-700 hover:text-blue-600 font-medium">
+                                        class="text-gray-700 hover:text-blue-600 font-medium">
                                     {{ Auth::user()->name }}
                                 </button>
 
+                                <!-- Role Badge -->
+                                @if (Auth::user()->is_admin)
+                                    <span class="ml-2 inline-flex items-center rounded-full bg-red-600 px-2.5 py-0.5 text-xs font-semibold text-white">
+                                        Admin
+                                    </span>
+                                @else
+                                    <span class="ml-2 inline-flex items-center rounded-full bg-sky-600 px-2.5 py-0.5 text-xs font-semibold text-white">
+                                        Author
+                                    </span>
+                                @endif
+
                                 <!-- Dropdown Menu -->
                                 <div x-show="dropdown"
-                                    @click.away="dropdown = false"
-                                    class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg py-2 z-50">
+                                     @click.away="dropdown = false"
+                                     class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg py-2 z-50">
+
+                                    <a href="{{ route('admin.dashboard') }}"
+                                       class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                        Admin Panel
+                                    </a>
 
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
@@ -69,8 +85,7 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}"
-                                          method="POST" class="hidden">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                                         @csrf
                                     </form>
                                 </div>
@@ -87,8 +102,7 @@
                         </button>
 
                         <!-- Mobile Menu -->
-                        <div x-show="open" class="absolute top-16 right-4 bg-white shadow-lg rounded-lg w-40 py-2 md:hidden">
-
+                        <div x-show="open" class="absolute top-16 right-4 bg-white shadow-lg rounded-lg w-48 py-2 md:hidden">
                             @guest
                                 @if (Route::has('login'))
                                 <a href="{{ route('login') }}"
@@ -96,7 +110,6 @@
                                     {{ __('Login') }}
                                 </a>
                                 @endif
-
                                 @if (Route::has('register'))
                                 <a href="{{ route('register') }}"
                                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
@@ -104,9 +117,23 @@
                                 </a>
                                 @endif
                             @else
-                                <button class="block px-4 py-2 text-gray-700 font-medium">
-                                    {{ Auth::user()->name }}
-                                </button>
+                                <div class="block px-4 py-2">
+                                    <span class="block font-medium">{{ Auth::user()->name }}</span>
+                                    @if(Auth::user()->is_admin)
+                                        <span class="inline-flex items-center rounded-full bg-red-600 px-2.5 py-0.5 text-xs font-semibold text-white">
+                                            Admin
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center rounded-full bg-sky-600 px-2.5 py-0.5 text-xs font-semibold text-white">
+                                            Author
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <a href="{{ route('admin.dashboard') }}"
+                                   class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                    Admin Panel
+                                </a>
 
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();"
@@ -114,12 +141,10 @@
                                     {{ __('Logout') }}
                                 </a>
 
-                                <form id="logout-form-mobile" action="{{ route('logout') }}"
-                                      method="POST" class="hidden">
+                                <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="hidden">
                                     @csrf
                                 </form>
                             @endguest
-
                         </div>
 
                     </div>
