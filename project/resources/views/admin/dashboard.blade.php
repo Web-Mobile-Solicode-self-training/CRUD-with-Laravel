@@ -1,14 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="max-w-5xl mx-auto px-4 py-8">
-        <h1 class="text-2xl font-semibold mb-4">Espace d’administration</h1>
-        <p class="mb-2">Bienvenue dans l’admin du blog.</p>
+<div class="max-w-5xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-semibold mb-4">Admin Area</h1>
 
-        @auth
-            <p class="text-sm text-gray-700">
-                Utilisateur connecté : {{ Auth::user()->name }}
+    @auth
+        <p>User logged in: {{ Auth::user()->name }}</p>
+
+        @if(Auth::user()->is_admin)
+            <p class="text-sm text-emerald-700 font-medium">
+                Profile detected: <span class="font-semibold">Admin</span>
             </p>
-        @endauth
-    </div>
+        @else
+            <p class="text-sm text-sky-700 font-medium">
+                Profile detected: <span class="font-semibold">Author</span>
+            </p>
+        @endif
+    @endauth
+</div>
 @endsection
