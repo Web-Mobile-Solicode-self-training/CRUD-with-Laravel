@@ -5,9 +5,14 @@ namespace App\Providers;
 use App\Models\Article;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use App\Policies\ArticlePolicy;
+
+
 
 class AuthServiceProvidercls extends ServiceProvider
 {
+
+    
     /**
      * Register services.
      */
