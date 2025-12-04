@@ -8,9 +8,13 @@
       {{ session('status') }}
     </div>
   @endif
-
-  <a href="{{ route('articles.create') }}" style="display:inline-block;margin-bottom:1rem;padding:.5rem 1rem;background:#111;color:#fff;text-decoration:none;">+ Nouvel article</a>
-
+  
+@can('create-article')
+  <a href="{{ route('articles.create') }}"
+      class="inline-flex items-center rounded bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">
+       Ajouter un article
+   </a>
+@endcan
   <table style="width:100%;border-collapse:collapse;">
     <thead>
       <tr>
@@ -26,10 +30,19 @@
           <td>{{ $a->slug }}</td>
           <td style="text-align:center;">
             <a href="{{ route('articles.edit', $a) }}">✏️</a>
+            @can('delete-article', $a)
             <form action="{{ route('articles.destroy', $a) }}" method="POST" style="display:inline;">
-              @csrf @method('DELETE')
+              @csrf 
+              @method('DELETE')
               <button type="submit" onclick="return confirm('Supprimer ?')">🗑️</button>
             </form>
+            @endcan
+
+            @cannot('delete-article', $a)
+                   <span class="ml-2 text-xs text-gray-500">
+                       Vous ne pouvez pas supprimer cet article.
+                   </span>
+            @endcannot
           </td>
         </tr>
       @empty

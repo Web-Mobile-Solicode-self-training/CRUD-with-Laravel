@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
-class UpdateArticleRequest extends FormRequest
+class UpdateArticleRequest extends FormRequest 
 {
     public function authorize(): bool
     {
@@ -23,6 +23,7 @@ class UpdateArticleRequest extends FormRequest
     public function rules(): array
     {
         $article = $this->route('article');
+
         return [
             'title'   => ['required','string','min:3','max:150'],
             'slug'    => [
@@ -36,7 +37,7 @@ class UpdateArticleRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'slug.unique' => 'This slug already exists for another article.',
+            'slug.unique' => 'Ce slug est déjà pris par un autre article.',
         ];
     }
 }

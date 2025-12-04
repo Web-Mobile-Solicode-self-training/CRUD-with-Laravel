@@ -8,16 +8,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
-use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
 {
-
-    public function __construct()
-{
-    $this->middleware('auth');
-}
-
     public function index(): View
     {
         $articles = Article::latest('id')->paginate(5);
@@ -26,19 +19,15 @@ class ArticleController extends Controller
 
     public function create(): View
     {
-        if (Gate::denies('create-article')) {
-            abort(403);
-        }
         return view('articles.create');
     }
 
     public function store(StoreArticleRequest $request): RedirectResponse
     {
-        if (Gate::denies('create-article')) {
-            abort(403);
-        }
+        
         $data = $request->validated();
         $data['slug'] ??= Str::slug($data['title']);
+        $data['user_id'] = auth()->id();
         Article::create($data);
 
         return redirect()->route('articles.index')
@@ -62,10 +51,6 @@ class ArticleController extends Controller
 
     public function destroy(Article $article): RedirectResponse
     {
-
-        if (Gate::denies('delete-article', $article)) {
-            abort(403);
-        }
         $article->delete();
         return redirect()->route('articles.index')
             ->with('status', '🗑️ Article supprimé.');

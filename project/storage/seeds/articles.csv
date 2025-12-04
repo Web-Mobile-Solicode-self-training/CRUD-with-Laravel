@@ -2,3 +2,10 @@ title;slug;excerpt;views;published
 Découvrir Laravel;decouvrir-laravel;Introduction au framework PHP;120;1
 Blade en pratique;blade-en-pratique;Moteur de template Laravel;90;1
 Eloquent simplifié;eloquent-simplifie;ORM et modèles en action;60;1
+Routing avancé;routing-avance;Comprendre le système de routing;75;1
+Middleware utiles;middleware-utiles;Comment fonctionnent les middlewares;65;1
+Artisan en profondeur;artisan-en-profondeur;Commandes importantes Artisan;110;1
+Introduction à Eloquent;introduction-eloquent;Comprendre l’ORM Laravel;98;1
+Relations Eloquent;relations-eloquent;One-to-many, Many-to-many;84;1
+Seeder & Factory;seeder-et-factory;Générer des données facilement;72;1
+Migration avancée;migration-avancee;Modifier et gérer les tables;55;1

@@ -65,9 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'Africa/Casablanca',
-    'locale'   => 'fr',
-    'fallback_locale' => 'en',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------

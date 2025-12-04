@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "blog/blog",
+    "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
@@ -66,10 +66,7 @@
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
-        ],
-    "serve": "php artisan serve",
-  "migrate": "php artisan migrate",
-  "fresh": "php artisan migrate:fresh"
+        ]
     },
     "extra": {
         "laravel": {

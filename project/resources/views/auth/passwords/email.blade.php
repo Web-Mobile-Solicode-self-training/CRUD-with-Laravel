@@ -1,40 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gray-100 py-10">
-    <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
+<div class="max-w-xl mx-auto mt-10">
 
-        <h2 class="text-2xl font-bold text-center mb-4 text-gray-800">Reset Password</h2>
+    <div class="bg-white shadow-md rounded-lg p-6">
 
-        {{-- Status message --}}
+        {{-- Title --}}
+        <h2 class="text-xl font-semibold mb-4">
+            {{ __('Reset Password') }}
+        </h2>
+
+        {{-- Success Message --}}
         @if (session('status'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+            <div class="mb-4 p-3 rounded bg-green-100 text-green-700">
                 {{ session('status') }}
             </div>
         @endif
 
+        {{-- Form --}}
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
 
             {{-- Email --}}
-            <div class="mb-5">
-                <label for="email" class="block text-gray-700 font-medium mb-1">Email Address</label>
+            <div class="mb-4">
+                <label for="email" class="block font-medium mb-1">
+                    {{ __('Email Address') }}
+                </label>
+
                 <input id="email" type="email"
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 
-                              focus:ring focus:ring-blue-200 focus:border-blue-500
-                              @error('email') border-red-500 @enderror"
-                       name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                       class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-400 @error('email') border-red-500 @enderror"
+                       name="email" value="{{ old('email') }}" required autofocus>
 
                 @error('email')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
-            {{-- Submit --}}
-            <button type="submit"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">
-                Send Password Reset Link
-            </button>
+            {{-- Button --}}
+            <div class="mt-6">
+                <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">
+                    {{ __('Send Password Reset Link') }}
+                </button>
+            </div>
 
         </form>
     </div>
